@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext, useEffect} from 'react';
 import {withStyles} from "@material-ui/core";
 
 const style = {
@@ -10,15 +10,19 @@ const style = {
     justifySelf: 'center',
     backgroundSize: '100% 100%',
     borderRadius: '10px'
+  },
+  img: {
+    height: '100%',
+    width: '100%',
+    backgroundSize: '100% 100%',
+    borderRadius: '10px'
   }
 };
 
-export default withStyles(style)(({classes, data}) => {
+export default withStyles(style)(({classes, data, onLoad}) => {
   return (
-    <div className={classes.root} style={{
-      backgroundImage: `url(${data.url})`
-    }}>
-
+    <div className={classes.root} >
+      <img className={classes.img}  src={data.url} onLoad={onLoad} />
     </div>
   )
 })

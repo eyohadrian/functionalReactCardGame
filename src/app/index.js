@@ -50,8 +50,8 @@ export default withStyles(style)(({classes}) => {
 
   return (
       <div className={classes.root}>
-        {!state.cardRawData && <StartScreen/>}
-        {state.cardRawData && <MainScreen/>}
+        {false && <StartScreen/>}
+        {true && <MainScreen/>}
       </div>
   )
 });
