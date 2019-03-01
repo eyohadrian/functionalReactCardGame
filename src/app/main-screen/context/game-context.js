@@ -2,25 +2,29 @@ import React, {createContext, useContext, useReducer} from "react";
 import CARD_STATE from "../card-state";
 
 const initialState = {
-  cardsLoaded: 0,
-  cardsFaceDown: true,
   cards: []
 };
 
+const areCardsLoaded = cards => cards.every(card => card.loaded === true);
+const allCardsFaceUp = cards => cards.map(card => ({...card, state: CARD_STATE.FACE_UP}));
+
+const filterCardPrdecitacte = id => card => card.id === id;
+const excludeCardsPredicate = id => card => card.id !== id;
+
+const loadedToTrueAndReturn = (cards,predicate) => ({...cards.find(predicate), loaded: true});
+const addCard = (cards, card, predicate) => [...cards.filter(predicate), card];
 
 const reducer = (state, action) => {
   const newState = {...state};
 
   switch (action.type) {
     case 'cardLoaded': {
-      newState.cardsLoaded = state.cardsLoaded + 1;
-      newState.cardsFaceDown = newState.cardsLoaded < 10;
 
-      const card = {...state.cards.find(card => card.id === action.id), loaded: true};
-      newState.cards = [...state.cards.filter(card => card.id !== action.id), card];
+      const card = loadedToTrueAndReturn(state.cards, filterCardPrdecitacte(action.id));
+      newState.cards = addCard(state.cards, card, excludeCardsPredicate(action.id))
 
-      if(newState.cards.every(card => card.loaded === true)) {
-        newState.cards = newState.cards.map(card => ({...card, state: CARD_STATE.FACE_UP}))
+      if(areCardsLoaded(newState.cards)) {
+        newState.cards = allCardsFaceUp(newState.cards);
       }
 
       return newState;
