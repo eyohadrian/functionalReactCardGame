@@ -1,18 +1,18 @@
 import React, {createContext, useContext, useReducer} from "react";
-import CARD_STATE from "../card-state";
+import {
+  addCard, allCardsFaceDown,
+  allCardsFaceUp,
+  areCardsLoaded,
+  excludeCardsPredicate,
+  filterCardPrdecitacte,
+  loadedToTrueAndReturn
+} from "../utils";
+import GAME_STATE from "../game-state";
 
 const initialState = {
-  cards: []
+  cards: [],
+  gameState: GAME_STATE.STARTING
 };
-
-const areCardsLoaded = cards => cards.every(card => card.loaded === true);
-const allCardsFaceUp = cards => cards.map(card => ({...card, state: CARD_STATE.FACE_UP}));
-
-const filterCardPrdecitacte = id => card => card.id === id;
-const excludeCardsPredicate = id => card => card.id !== id;
-
-const loadedToTrueAndReturn = (cards,predicate) => ({...cards.find(predicate), loaded: true});
-const addCard = (cards, card, predicate) => [...cards.filter(predicate), card];
 
 const reducer = (state, action) => {
   const newState = {...state};
@@ -29,8 +29,13 @@ const reducer = (state, action) => {
 
       return newState;
     }
-    case 'set_cards': {
+    case 'SET_CARDS': {
       newState.cards = action.cards;
+      return newState;
+    }
+    case 'CARDS_DOWN': {
+      newState.cards = allCardsFaceDown(state.cards);
+      newState.state = GAME_STATE.RUNNING;
       return newState;
     }
     default: {
