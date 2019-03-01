@@ -3,6 +3,7 @@ import {withStyles} from "@material-ui/core";
 import classNames from 'classnames';
 import {getGameState} from "./context/game-context";
 import CARD_STATE from "./card-state";
+import {CARD_LOADED} from "./actions";
 
 const cardProperties = {
   height: '100%',
@@ -46,7 +47,7 @@ export default withStyles(style)(({classes, data, faceDown}) => {
         [classes.img]: true,
         [classes.hided]: state === CARD_STATE.FACE_DOWN})}
            src={url}
-           onLoad={() => dispatch({type: 'cardLoaded', id})}
+           onLoad={() => dispatch({type: CARD_LOADED, id})}
            alt=""/>
     </div>
   )
