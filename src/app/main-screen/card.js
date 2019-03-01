@@ -1,28 +1,53 @@
-import React, {useContext, useEffect} from 'react';
+import React from 'react';
 import {withStyles} from "@material-ui/core";
+import classNames from 'classnames';
+import {getGameState} from "./context/game-context";
+import CARD_STATE from "./card-state";
+
+const cardProperties = {
+  height: '100%',
+  width: '100%',
+  borderRadius: '10px',
+  position: 'absolute',
+  top: '0',
+};
 
 const style = {
   root: {
-    backgroundColor: 'red',
     height: '85%',
     width: '65%',
     alignSelf: 'center',
     justifySelf: 'center',
-    backgroundSize: '100% 100%',
-    borderRadius: '10px'
+    position: 'relative'
   },
+
   img: {
-    height: '100%',
-    width: '100%',
-    backgroundSize: '100% 100%',
-    borderRadius: '10px'
+    ...cardProperties,
+    backgroundSize: '100% 100%'
+  },
+  back: {
+    backgroundColor: 'red',
+    ...cardProperties
+  },
+  hided: {
+    zIndex: '-1'
   }
 };
 
-export default withStyles(style)(({classes, data, onLoad}) => {
+export default withStyles(style)(({classes, data, faceDown}) => {
+
+  const {gameState, dispatch} = getGameState();
+  const {id, state, url, loaded } = data;
+
   return (
     <div className={classes.root} >
-      <img className={classes.img}  src={data.url} onLoad={onLoad} />
+      <div className={classes.back}/>
+      <img className={classNames({
+        [classes.img]: true,
+        [classes.hided]: state === CARD_STATE.FACE_DOWN})}
+           src={url}
+           onLoad={() => dispatch({type: 'cardLoaded', id})}
+           alt=""/>
     </div>
   )
 })

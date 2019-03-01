@@ -1,28 +1,10 @@
-import React, {createContext, useContext, useEffect, useReducer} from 'react';
-import {getGlobalState} from "../context/global-context";
+import React, {useEffect, useReducer} from 'react';
 import Card from './card';
 import {withStyles} from "@material-ui/core";
 import dummy from "./dummy";
-
-
-const initialState = {
-  cardsLoaded: 0,
-  cardsFaceDown: true,
-};
-
-const reducer = (state, action) => {
-  const newState = {...state};
-
-  switch (action.type) {
-    case 'cardLoaded': {
-      newState.cardsLoaded = state.cardsLoaded + 1;
-      newState.cardsFaceDown = newState.cardsLoaded < 10;
-      return newState;
-    } default: {
-      return newState;
-    }
-  }
-};
+import {GameContextProvider, getGameState} from "./context/game-context";
+import Board from './board';
+import CARD_STATE from './card-state';
 
 const style = {
   root: {
@@ -34,24 +16,30 @@ const style = {
   }
 };
 
+const Index = withStyles(style)(({classes}) => {
 
-export default withStyles(style)(({classes}) => {
+  const {state, dispatch} = getGameState();
 
   useEffect(() => {
-    console.log("Rendered main-screen")
-  });
-
-  const [localState, dispatchLocal] = useReducer(reducer, initialState);
-  if(!localState.cardsFaceDown) {
-    console.log("Completed");
-    debugger;
-  }
-
-  const {globalState, dispatchGlobal} = getGlobalState();
+    console.log("Game has started");
+    const cards = dummy().map(data => ({
+      id: data.id,
+      url: data.url,
+      loaded: false,
+      state: CARD_STATE.FACE_DOWN
+    }));
+    dispatch({type: 'set_cards', cards})
+  }, []);
 
   return (
     <div className={classes.root}>
-      {dummy().map(data => <Card data={data} key={data.id} onLoad={() => dispatchLocal({type: 'cardLoaded'})} />)}
+      {state.cards.length > 0 && <Board data={state.cards}/>}
     </div>
   )
 })
+
+export default () =>  (
+  <GameContextProvider>
+    <Index/>
+  </GameContextProvider>
+)

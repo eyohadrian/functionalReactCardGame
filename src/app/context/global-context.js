@@ -19,7 +19,6 @@ const reducer = (state, action) => {
     }
     case 'cardDataRecived': {
       newState.cardRawData = action.data;
-      debugger;
       return newState;
     }
     default: {
