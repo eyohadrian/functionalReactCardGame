@@ -8,11 +8,11 @@ import {
   loadedToTrueAndReturn
 } from "../utils";
 import GAME_STATE from "../game-state";
-import {CARD_LOADED, CARDS_DOWN, SET_CARDS} from "../actions";
+import {CARD_CLICK, CARD_LOADED, CARDS_DOWN, SET_CARDS} from "../actions";
 
 const initialState = {
   cards: [],
-  gameState: GAME_STATE.STARTING
+  state: GAME_STATE.STARTING
 };
 
 const reducer = (state, action) => {
@@ -20,7 +20,7 @@ const reducer = (state, action) => {
 
   switch (action.type) {
     case CARD_LOADED: {
-
+      console.log("Dispatch: " + CARD_LOADED)
       const card = loadedToTrueAndReturn(state.cards, filterCardPrdecitacte(action.id));
       newState.cards = addCard(state.cards, card, excludeCardsPredicate(action.id))
 
@@ -31,12 +31,19 @@ const reducer = (state, action) => {
       return newState;
     }
     case SET_CARDS: {
-      newState.cards = action.cards;
+      newState.cards = action
+        .cards
+        .sort((a, b) => a.order > b.order ? -1 : 1);
+      debugger;
       return newState;
     }
     case CARDS_DOWN: {
       newState.cards = allCardsFaceDown(state.cards);
       newState.state = GAME_STATE.RUNNING;
+      return newState;
+    }
+    case CARD_CLICK: {
+      debugger;
       return newState;
     }
     default: {

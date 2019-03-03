@@ -6,6 +6,7 @@ import {GameContextProvider, getGameState} from "./context/game-context";
 import Board from './board';
 import CARD_STATE from './card-state';
 import {areAllCardsFaceUp} from "./utils";
+import {SET_CARDS} from "./actions";
 
 const style = {
   root: {
@@ -27,13 +28,14 @@ const Index = withStyles(style)(({classes}) => {
       id: data.id,
       url: data.url,
       loaded: false,
-      state: CARD_STATE.FACE_DOWN
+      state: CARD_STATE.FACE_DOWN,
+      order: data.order
     }));
-    dispatch({type: 'SET_CARDS', cards})
+    dispatch({type: SET_CARDS, cards})
   }, []);
 
   if (areAllCardsFaceUp(state.cards)) {
-    setTimeout(() => {dispatch({type: 'CARDS_DOWN'})}, 1500)
+    //setTimeout(() => {dispatch({type: 'CARDS_DOWN'})}, 1500)
   }
 
   return (
