@@ -9,6 +9,7 @@ import {
 } from "../utils";
 import GAME_STATE from "../game-state";
 import {CARD_CLICK, CARD_LOADED, CARDS_DOWN, SET_CARDS} from "../actions";
+import CARD_STATE from "../card-state";
 
 const initialState = {
   cards: [],
@@ -34,7 +35,6 @@ const reducer = (state, action) => {
       newState.cards = action
         .cards
         .sort((a, b) => a.order > b.order ? -1 : 1);
-      debugger;
       return newState;
     }
     case CARDS_DOWN: {
@@ -43,6 +43,7 @@ const reducer = (state, action) => {
       return newState;
     }
     case CARD_CLICK: {
+      newState.cards = [...state.cards.filter(card => card.id !== action.id), {...state.cards.filter(card => card.id === action.id)[0], state: CARD_STATE.FACE_UP}]
       debugger;
       return newState;
     }

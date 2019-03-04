@@ -1,10 +1,11 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {withStyles} from "@material-ui/core";
 import classNames from 'classnames';
 import {getGameState} from "./context/game-context";
 import CARD_STATE from "./card-state";
 import {CARD_CLICK, CARD_LOADED} from "./actions";
 import GAME_STATE from "./game-state";
+import {getGameDispatchContext} from "./index";
 
 const cardProperties = {
   height: '100%',
@@ -38,17 +39,26 @@ const style = {
 
 export default withStyles(style)(({classes, data, faceDown}) => {
 
-  const {state: gameState, dispatch} = getGameState();
-
-
-  const {id, state, url, loaded } = data;
-  useEffect(() => {
-    console.log("Loaded Card: " + id)
+  const [card, setCard] = useState({
+    id: data.id,
+    url: data.url,
+    loaded: false,
+    state: CARD_STATE.FACE_DOWN,
+    order: data.order
   });
-  const isGameRunning = gameState.state === GAME_STATE.RUNNING
+  const {id, url, state} = {...card};
+  useEffect(() => {
+    console.log("XXX - " + id)
+  });
+
+  const dispatch = getGameDispatchContext();
   debugger;
+  //const isGameRunning = gameState.state === GAME_STATE.RUNNING;
+  //e => isGameRunning ? dispatch({type: CARD_CLICK, id}) : undefined
+  // () => dispatch({type: CARD_LOADED, id})
+  console.log("Rerendered id: " + id);
   return (
-    <div className={classes.root} onClick={e => isGameRunning ? dispatch({type: CARD_CLICK, id}) : undefined}>
+    <div className={classes.root} onClick={() => setCard({...card, state: CARD_STATE.FACE_UP})}>
       <div className={classes.back}/>
       <img className={classNames({
         [classes.img]: true,

@@ -2,7 +2,6 @@ import React from "react";
 import Card from "./card";
 
 export default ({data}) => {
-  debugger;
   return (
     <React.Fragment>
       {data
