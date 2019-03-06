@@ -13,7 +13,9 @@ import CARD_STATE from "../card-state";
 
 const initialState = {
   cards: [],
-  state: GAME_STATE.STARTING
+  state: GAME_STATE.STARTING,
+  cardsFaced: [],
+  cardsFacedSameTime: 2
 };
 
 const reducer = (state, action) => {
@@ -21,7 +23,7 @@ const reducer = (state, action) => {
 
   switch (action.type) {
     case CARD_LOADED: {
-      console.log("Dispatch: " + CARD_LOADED)
+      console.log("Dispatch: " + CARD_LOADED);
       const card = loadedToTrueAndReturn(state.cards, filterCardPrdecitacte(action.id));
       newState.cards = addCard(state.cards, card, excludeCardsPredicate(action.id))
 
@@ -41,7 +43,21 @@ const reducer = (state, action) => {
       return newState;
     }
     case CARD_CLICK: {
-      newState.cards = [...state.cards.filter(card => card.id !== action.id), {...state.cards.filter(card => card.id === action.id)[0], state: CARD_STATE.FACE_UP}]
+      const card = {...state.cards.filter(card => card.id === action.id)[0], state: CARD_STATE.FACE_UP};
+      newState.cards = [...state.cards.filter(card => card.id !== action.id), card];
+
+      const cardsFacedUp = newState.cards.filter(card => card.state === CARD_STATE.FACE_UP);
+      debugger;
+      if(cardsFacedUp.length === state.cardsFacedSameTime) {
+        const arePair = newState.cards
+          .filter(card => card.state === CARD_STATE.FACE_UP && !card.hasFindItsPair)
+          .reduce((prev, current) => prev.pair === current.pair);
+
+        arePair
+          ? newState.cards = [...newState.cards.filter(card => card.state === CARD_STATE.FACE_DOWN || card.hasFindItsPair), ...cardsFacedUp.map(card => ({...card, hasFindItsPair: true}))]
+          : newState.state = GAME_STATE.FREEZED
+      };
+
       return newState;
     }
     default: {

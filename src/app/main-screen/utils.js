@@ -1,7 +1,7 @@
 import CARD_STATE from "./card-state";
 
 export const allCardsFaceUp = cards => cards.map(card => ({...card, state: CARD_STATE.FACE_UP}));
-export const allCardsFaceDown = cards => cards.map(card => ({...card, state: CARD_STATE.FACE_DOWN}));
+export const allCardsFaceDown = cards => cards.filter(card => card.hasFindItsPair === false).map(card => ({...card, state: CARD_STATE.FACE_DOWN}));
 export const filterCardPrdecitacte = id => card => card.id === id;
 export const excludeCardsPredicate = id => card => card.id !== id;
 export const loadedToTrueAndReturn = (cards,predicate) => ({...cards.find(predicate), loaded: true});

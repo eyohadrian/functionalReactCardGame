@@ -31,21 +31,23 @@ const Index = withStyles(style)(({classes}) => {
       url: data.url,
       loaded: false,
       state: CARD_STATE.FACE_DOWN,
-      order: data.order
+      order: data.order,
+      pair: data.pair,
+      hasFindItsPair: false
     }));
     dispatch({type: SET_CARDS, cards})
   }, []);
 
 
-
   useEffect(() => {
+    debugger;
     if (areAllCardsFaceUp(state.cards)) {
       setTimeout(() => {dispatch({type: CARDS_DOWN})}, 1500)
     }
   }, [state.state === GAME_STATE.STARTING]);
 
   useEffect(() => {
-    setTimeout(() => {dispatch({type: CARDS_DOWN})}, 1500)
+    setTimeout(() => {dispatch({type: CARDS_DOWN})}, 3000)
   }, [state.state === GAME_STATE.FREEZED]);
 
   return (
