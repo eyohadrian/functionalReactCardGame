@@ -33,28 +33,17 @@ const style = {
     ...cardProperties
   },
   hided: {
-    zIndex: '1'
+    zIndex: '-1'
   }
 };
 
-export default withStyles(style)(({classes, id, url, loaded, state, order}) => {
+export default withStyles(style)(({classes, id, url, loaded, state}) => {
 
-  const ref = useRef({id, url, loaded, state});
   const dispatch = getGameDispatchContext();
-  const [load, setLoad] = useState({
-    shouldLoad: loaded,
-    onLoad: () => dispatch({type: CARD_LOADED, id})
-  });
 
-  useEffect(() => {
-    console.log("XXX - " + id);
-    setLoad({...load, onLoad: () => {}});
-    console.log("Rerendered id: " + id + " - Loaded : " + loaded);
-    console.log(ref)
-  }, [loaded]);
+
   //const isGameRunning = gameState.state === GAME_STATE.RUNNING;
   //e => isGameRunning ? dispatch({type: CARD_CLICK, id}) : undefined
-  // () => dispatch({type: CARD_LOADED, id})
 
   return (
     <div className={classes.root} >

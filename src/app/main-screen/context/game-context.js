@@ -31,10 +31,7 @@ const reducer = (state, action) => {
       return newState;
     }
     case SET_CARDS: {
-      newState.cards = action
-        .cards
-        .sort((a, b) => a.order > b.order ? -1 : 1);
-      debugger;
+      newState.cards = action.cards;
       return newState;
     }
     case CARDS_DOWN: {

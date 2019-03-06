@@ -43,7 +43,6 @@ const retrieveFromApi = async (keyword) => {
             order: randomBetween(1, 1000)
           }]))
         .reduce((prev, current) => [...prev, ...current])
-        .sort((a, b) => a.order > b.order ? -1 : 1)
     )};
 
 export default withStyles(style)(({classes}) => {
