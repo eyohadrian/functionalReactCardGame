@@ -14,7 +14,6 @@ import CARD_STATE from "../card-state";
 const initialState = {
   cards: [],
   state: GAME_STATE.STARTING,
-  cardsFaced: [],
   cardsFacedSameTime: 2
 };
 
@@ -23,7 +22,6 @@ const reducer = (state, action) => {
 
   switch (action.type) {
     case CARD_LOADED: {
-      console.log("Dispatch: " + CARD_LOADED);
       const card = loadedToTrueAndReturn(state.cards, filterCardPrdecitacte(action.id));
       newState.cards = addCard(state.cards, card, excludeCardsPredicate(action.id))
 
@@ -39,14 +37,12 @@ const reducer = (state, action) => {
     }
     case CARDS_DOWN: {
       newState.cards = cardsWithPairNotFoundFaceDown(state.cards);
-      debugger;
       newState.state = GAME_STATE.RUNNING;
       return newState;
     }
     case CARD_CLICK: {
       const card = {...state.cards.filter(card => card.id === action.id)[0], state: CARD_STATE.FACE_UP};
       newState.cards = [...state.cards.filter(card => card.id !== action.id), card];
-
       const cardsFacedUpWithoutPair = findCardsWithPairNotFound(findCardsFacedUp(newState.cards));
 
       if(cardsFacedUpWithoutPair.length === state.cardsFacedSameTime) {
