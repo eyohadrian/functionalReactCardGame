@@ -5,11 +5,11 @@ export default ({data}) => {
   return (
     <React.Fragment>
       {data
+        .sort((a, b) => a.order > b.order ? -1 : 1)
         .map(card =>
           <Card
-            data={card}
-            key={`${card.id}`}
-            faceDown={true}/>)
+            {...card}
+            key={`${card.id}`}/>)
       }
     </React.Fragment>
   )

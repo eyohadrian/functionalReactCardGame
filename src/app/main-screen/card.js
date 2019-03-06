@@ -33,32 +33,31 @@ const style = {
     ...cardProperties
   },
   hided: {
-    zIndex: '-1'
+    zIndex: '1'
   }
 };
 
-export default withStyles(style)(({classes, data, faceDown}) => {
+export default withStyles(style)(({classes, id, url, loaded, state, order}) => {
 
-  const [card, setCard] = useState({
-    id: data.id,
-    url: data.url,
-    loaded: false,
-    state: CARD_STATE.FACE_DOWN,
-    order: data.order
-  });
-  const {id, url, state} = {...card};
-  useEffect(() => {
-    console.log("XXX - " + id)
-  });
-
+  const ref = useRef({id, url, loaded, state});
   const dispatch = getGameDispatchContext();
-  debugger;
+  const [load, setLoad] = useState({
+    shouldLoad: loaded,
+    onLoad: () => dispatch({type: CARD_LOADED, id})
+  });
+
+  useEffect(() => {
+    console.log("XXX - " + id);
+    setLoad({...load, onLoad: () => {}});
+    console.log("Rerendered id: " + id + " - Loaded : " + loaded);
+    console.log(ref)
+  }, [loaded]);
   //const isGameRunning = gameState.state === GAME_STATE.RUNNING;
   //e => isGameRunning ? dispatch({type: CARD_CLICK, id}) : undefined
   // () => dispatch({type: CARD_LOADED, id})
-  console.log("Rerendered id: " + id);
+
   return (
-    <div className={classes.root} onClick={() => setCard({...card, state: CARD_STATE.FACE_UP})}>
+    <div className={classes.root} >
       <div className={classes.back}/>
       <img className={classNames({
         [classes.img]: true,

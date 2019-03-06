@@ -34,17 +34,25 @@ const Index = withStyles(style)(({classes}) => {
 
   useEffect(() => {
     console.log("Game has started");
+    const cards = dummy().map(data => ({
+      id: data.id,
+      url: data.url,
+      loaded: false,
+      state: CARD_STATE.FACE_DOWN,
+      order: data.order
+    }));
+    dispatch({type: SET_CARDS, cards})
   }, []);
 
   if (areAllCardsFaceUp(state.cards)) {
-    //setTimeout(() => {dispatch({type: 'CARDS_DOWN'})}, 1500)
+    setTimeout(() => {dispatch({type: 'CARDS_DOWN'})}, 1500)
   }
 
   console.log("IM AN ASSHOLE");
   return (
     <div className={classes.root}>
       <GameDispatchContextProvider dispatch={dispatch}>
-        <Board data={dummy()}/>
+        {state.cards.length > 0 && <Board data={state.cards}/>}
       </GameDispatchContextProvider>
     </div>
   )

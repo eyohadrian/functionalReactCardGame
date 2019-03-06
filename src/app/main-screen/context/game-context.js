@@ -28,13 +28,13 @@ const reducer = (state, action) => {
       if(areCardsLoaded(newState.cards)) {
         newState.cards = allCardsFaceUp(newState.cards);
       }
-
       return newState;
     }
     case SET_CARDS: {
       newState.cards = action
         .cards
         .sort((a, b) => a.order > b.order ? -1 : 1);
+      debugger;
       return newState;
     }
     case CARDS_DOWN: {
