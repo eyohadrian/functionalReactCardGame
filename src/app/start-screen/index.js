@@ -32,15 +32,17 @@ const retrieveFromApi = async (keyword) => {
     .then(data =>
       data.results
         .slice(0, nCards)
-        .map(result =>
+        .map((result, index) =>
           ([{
             id: result.id,
             url: result.urls.regular,
-            order: randomBetween(1, 1000)
+            order: randomBetween(1, 1000),
+            pair: index
           }, {
             id: `${result.id}-copy`,
             url: result.urls.regular,
-            order: randomBetween(1, 1000)
+            order: randomBetween(1, 1000),
+            pair: index
           }]))
         .reduce((prev, current) => [...prev, ...current])
     )};

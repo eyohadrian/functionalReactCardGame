@@ -28,6 +28,7 @@ const reducer = (state, action) => {
       if(areCardsLoaded(newState.cards)) {
         newState.cards = allCardsFaceUp(newState.cards);
       }
+
       return newState;
     }
     case SET_CARDS: {
@@ -41,7 +42,6 @@ const reducer = (state, action) => {
     }
     case CARD_CLICK: {
       newState.cards = [...state.cards.filter(card => card.id !== action.id), {...state.cards.filter(card => card.id === action.id)[0], state: CARD_STATE.FACE_UP}]
-      debugger;
       return newState;
     }
     default: {

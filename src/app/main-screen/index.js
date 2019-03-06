@@ -6,7 +6,8 @@ import {GameContextProvider, getGameState} from "./context/game-context";
 import Board from './board';
 import CARD_STATE from './card-state';
 import {areAllCardsFaceUp} from "./utils";
-import {SET_CARDS} from "./actions";
+import {CARDS_DOWN, SET_CARDS} from "./actions";
+import GAME_STATE from "./game-state";
 
 const style = {
   root: {
@@ -18,15 +19,6 @@ const style = {
   }
 };
 
-const GameDispatchContext = createContext();
-
-const GameDispatchContextProvider = ({children, dispatch}) => (
-  <GameDispatchContext.Provider value={dispatch}>
-    {children}
-  </GameDispatchContext.Provider>
-);
-
-export const getGameDispatchContext = () => useContext(GameDispatchContext);
 
 const Index = withStyles(style)(({classes}) => {
 
@@ -44,16 +36,21 @@ const Index = withStyles(style)(({classes}) => {
     dispatch({type: SET_CARDS, cards})
   }, []);
 
-  if (areAllCardsFaceUp(state.cards)) {
-    setTimeout(() => {dispatch({type: 'CARDS_DOWN'})}, 1500)
-  }
 
-  console.log("IM AN ASSHOLE");
+
+  useEffect(() => {
+    if (areAllCardsFaceUp(state.cards)) {
+      setTimeout(() => {dispatch({type: CARDS_DOWN})}, 1500)
+    }
+  }, [state.state === GAME_STATE.STARTING]);
+
+  useEffect(() => {
+    setTimeout(() => {dispatch({type: CARDS_DOWN})}, 1500)
+  }, [state.state === GAME_STATE.FREEZED]);
+
   return (
     <div className={classes.root}>
-      <GameDispatchContextProvider dispatch={dispatch}>
         {state.cards.length > 0 && <Board data={state.cards}/>}
-      </GameDispatchContextProvider>
     </div>
   )
 });

@@ -37,20 +37,24 @@ const style = {
   }
 };
 
-export default withStyles(style)(({classes, id, url, loaded, state}) => {
+export default withStyles(style)(({classes, id, url, cardState}) => {
 
-  const dispatch = getGameDispatchContext();
-
-
-  //const isGameRunning = gameState.state === GAME_STATE.RUNNING;
-  //e => isGameRunning ? dispatch({type: CARD_CLICK, id}) : undefined
+  const {"state": gameState, dispatch} = getGameState();
+  const isGameRunning = gameState.state === GAME_STATE.RUNNING;
 
   return (
-    <div className={classes.root} >
+    <div
+      className={classes.root}
+      onClick={
+      e => isGameRunning
+        ? dispatch({type: CARD_CLICK, id})
+        : undefined
+      }
+    >
       <div className={classes.back}/>
       <img className={classNames({
         [classes.img]: true,
-        [classes.hided]: state === CARD_STATE.FACE_DOWN})}
+        [classes.hided]: cardState === CARD_STATE.FACE_DOWN})}
            src={url}
            onLoad={() => dispatch({type: CARD_LOADED, id})}
            alt=""/>
