@@ -40,14 +40,13 @@ const Index = withStyles(style)(({classes}) => {
 
 
   useEffect(() => {
-    debugger;
     if (areAllCardsFaceUp(state.cards)) {
       setTimeout(() => {dispatch({type: CARDS_DOWN})}, 1500)
     }
   }, [state.state === GAME_STATE.STARTING]);
 
   useEffect(() => {
-    setTimeout(() => {dispatch({type: CARDS_DOWN})}, 3000)
+    setTimeout(() => {dispatch({type: CARDS_DOWN})}, 1000)
   }, [state.state === GAME_STATE.FREEZED]);
 
   return (

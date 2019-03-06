@@ -2,9 +2,9 @@ import React, {createContext, useContext, useReducer} from "react";
 import {
   addCard, allCardsFaceDown,
   allCardsFaceUp,
-  areCardsLoaded,
+  areCardsLoaded, cardsWithPairNotFoundFaceDown,
   excludeCardsPredicate,
-  filterCardPrdecitacte,
+  filterCardPrdecitacte, findCardsFacedDown, findCardsFacedUp, findCardsWithPairFound, findCardsWithPairNotFound,
   loadedToTrueAndReturn
 } from "../utils";
 import GAME_STATE from "../game-state";
@@ -38,7 +38,8 @@ const reducer = (state, action) => {
       return newState;
     }
     case CARDS_DOWN: {
-      newState.cards = allCardsFaceDown(state.cards);
+      newState.cards = cardsWithPairNotFoundFaceDown(state.cards);
+      debugger;
       newState.state = GAME_STATE.RUNNING;
       return newState;
     }
@@ -46,17 +47,17 @@ const reducer = (state, action) => {
       const card = {...state.cards.filter(card => card.id === action.id)[0], state: CARD_STATE.FACE_UP};
       newState.cards = [...state.cards.filter(card => card.id !== action.id), card];
 
-      const cardsFacedUp = newState.cards.filter(card => card.state === CARD_STATE.FACE_UP);
-      debugger;
-      if(cardsFacedUp.length === state.cardsFacedSameTime) {
+      const cardsFacedUpWithoutPair = findCardsWithPairNotFound(findCardsFacedUp(newState.cards));
+
+      if(cardsFacedUpWithoutPair.length === state.cardsFacedSameTime) {
         const arePair = newState.cards
           .filter(card => card.state === CARD_STATE.FACE_UP && !card.hasFindItsPair)
           .reduce((prev, current) => prev.pair === current.pair);
 
         arePair
-          ? newState.cards = [...newState.cards.filter(card => card.state === CARD_STATE.FACE_DOWN || card.hasFindItsPair), ...cardsFacedUp.map(card => ({...card, hasFindItsPair: true}))]
+          ? newState.cards = [...newState.cards.filter(card => card.state === CARD_STATE.FACE_DOWN || card.hasFindItsPair), ...cardsFacedUpWithoutPair.map(card => ({...card, hasFindItsPair: true}))]
           : newState.state = GAME_STATE.FREEZED
-      };
+      }
 
       return newState;
     }
