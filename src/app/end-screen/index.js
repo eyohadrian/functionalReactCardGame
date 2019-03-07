@@ -28,7 +28,8 @@ const style = {
     height: '56px',
     width: '120px'
   }
-}
+};
+
 export default withStyles(style)(({classes}) => {
   const time = formattedTime(4131);
   const setStage = getSetStage();

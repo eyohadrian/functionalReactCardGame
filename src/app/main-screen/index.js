@@ -25,13 +25,13 @@ const style = {
 
 const Index = withStyles(style)(({classes}) => {
 
-  const {"dispatch": dispatchGlobal} = getGlobalState();
+  const {globalState, dispatchGlobal} = getGlobalState();
   const {state, dispatch} = getGameState();
   const setStage = getSetStage();
   useEffect(() => {
     console.log("Game has started");
     dispatchGlobal({type: GAME_STARTS, time: now()})
-    const cards = dummy().map(data => ({
+    const cards = globalState.cardRawData.map(data => ({
       id: data.id,
       url: data.url,
       loaded: false,

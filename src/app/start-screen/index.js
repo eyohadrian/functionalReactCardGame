@@ -5,6 +5,7 @@ import TextField from "@material-ui/core/TextField/TextField";
 import Button from "@material-ui/core/es/Button/Button";
 import {getGlobalState} from "../context/global-context";
 import {getSetStage, STAGE} from "../main-screen/context/stage-context";
+import {CARDS_DATA_RECIVED} from "../actions";
 
 const style = {
   root: {
@@ -54,12 +55,12 @@ export default withStyles(style)(({classes}) => {
     console.log("Rendered start-screen")
   });
 
-  const {state, dispatch} = getGlobalState();
+  const {globalState, dispatchGlobal} = getGlobalState();
 
-  if(state.send) {
-    retrieveFromApi(state.text).then(data => {
+  if(globalState.send) {
+    retrieveFromApi(globalState.text).then(data => {
       console.log(data);
-      dispatch({type: 'cardDataRecived', data})
+      dispatchGlobal({type: CARDS_DATA_RECIVED, data})
       setStage(STAGE.GAME);
     });
   }
@@ -67,9 +68,9 @@ export default withStyles(style)(({classes}) => {
   return (
     <Card className={classes.root}>
       <TextField
-        value={state.text}
-        onChange={e => dispatch({type: 'onChange', value: e.currentTarget.value})}/>
-      <Button onClick={() => dispatch({type: 'submit'})}>Submit</Button>
+        value={globalState.text}
+        onChange={e => dispatchGlobal({type: 'onChange', value: e.currentTarget.value})}/>
+      <Button onClick={() => dispatchGlobal({type: 'submit'})}>Submit</Button>
     </Card>
   )
 })

@@ -1,5 +1,5 @@
 import React, {createContext, useContext, useReducer} from "react";
-import {GAME_FINISHED, GAME_STARTS} from "../actions";
+import {CARDS_DATA_RECIVED, GAME_FINISHED, GAME_STARTS} from "../actions";
 import {now} from "../main-screen/utils";
 
 const initialState = {
@@ -22,7 +22,7 @@ const reducer = (state, action) => {
       newState.send = true;
       return newState;
     }
-    case 'cardDataRecived': {
+    case CARDS_DATA_RECIVED: {
       newState.cardRawData = action.data;
       return newState;
     }
@@ -45,9 +45,9 @@ const reducer = (state, action) => {
 export const GlobalContext = createContext();
 
 export const GlobalContextProvider = ({children}) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [globalState, dispatchGlobal] = useReducer(reducer, initialState);
   return (
-    <GlobalContext.Provider value={{state, dispatch}}>
+    <GlobalContext.Provider value={{globalState, dispatchGlobal}}>
       {children}
     </GlobalContext.Provider>
   )

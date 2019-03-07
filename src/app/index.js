@@ -65,7 +65,6 @@ const StageControl = ({stage}) => {
 
 export default withStyles(style)(({classes}) => {
 
-  const {state} = getGlobalState();
   const [stage, setStage] = useState(STAGE.START);
   return (
       <div className={classes.root}>
