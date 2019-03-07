@@ -51,7 +51,7 @@ export default withStyles(style)(({classes}) => {
   return (
       <div className={classes.root}>
         {false && <StartScreen/>}
-        {true && <MainScreen/>}
+        {(true && !state.gameFinished) && <MainScreen/>}
       </div>
   )
 });

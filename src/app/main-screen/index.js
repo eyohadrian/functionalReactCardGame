@@ -8,6 +8,8 @@ import CARD_STATE from './card-state';
 import {areAllCardsFaceUp} from "./utils";
 import {CARDS_DOWN, SET_CARDS} from "./actions";
 import GAME_STATE from "./game-state";
+import {getGlobalState} from "../context/global-context";
+import {GAME_FINISHED} from "../actions";
 
 const style = {
   root: {
@@ -22,6 +24,7 @@ const style = {
 
 const Index = withStyles(style)(({classes}) => {
 
+  const {"dispatch": dispatchGlobal} = getGlobalState();
   const {state, dispatch} = getGameState();
 
   useEffect(() => {
@@ -40,12 +43,17 @@ const Index = withStyles(style)(({classes}) => {
 
 
   useEffect(() => {
+
     if (areAllCardsFaceUp(state.cards) && state.state === GAME_STATE.STARTING) {
-      setTimeout(() => {dispatch({type: CARDS_DOWN})}, 3500)
-    }
-    if (state.state === GAME_STATE.FREEZED) {
-      debugger;
       setTimeout(() => {dispatch({type: CARDS_DOWN})}, 1000)
+    }
+
+    if (state.state === GAME_STATE.FREEZED) {
+      setTimeout(() => {dispatch({type: CARDS_DOWN})}, 1000)
+    }
+
+    if (state.state === GAME_STATE.FINISHED) {
+      setTimeout(() => {dispatchGlobal({type: GAME_FINISHED})}, 1000)
     }
   }, [state.state]);
 

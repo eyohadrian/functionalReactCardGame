@@ -1,9 +1,11 @@
 import React, {createContext, useContext, useReducer} from "react";
+import {GAME_FINISHED} from "../actions";
 
 const initialState = {
   text: "",
   send: false,
-  cardRawData: undefined
+  cardRawData: undefined,
+  gameFinished: false,
 };
 
 const reducer = (state, action) => {
@@ -19,6 +21,10 @@ const reducer = (state, action) => {
     }
     case 'cardDataRecived': {
       newState.cardRawData = action.data;
+      return newState;
+    }
+    case GAME_FINISHED: {
+      newState.gameFinished = true;
       return newState;
     }
     default: {

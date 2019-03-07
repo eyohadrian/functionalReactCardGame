@@ -32,7 +32,7 @@ const style = {
     backgroundColor: 'red',
     ...cardProperties
   },
-  hided: {
+  hidden: {
     zIndex: '-1'
   }
 };
@@ -41,20 +41,20 @@ export default withStyles(style)(({classes, id, url, cardState}) => {
 
   const {"state": gameState, dispatch} = getGameState();
   const isGameRunning = gameState.state === GAME_STATE.RUNNING;
-
+//TODO install reac-card-flip
   return (
     <div
       className={classes.root}
       onClick={
-      e => isGameRunning
-        ? dispatch({type: CARD_CLICK, id})
-        : undefined
+        () => isGameRunning
+          ? dispatch({type: CARD_CLICK, id})
+          : undefined
       }
     >
       <div className={classes.back}/>
       <img className={classNames({
         [classes.img]: true,
-        [classes.hided]: cardState === CARD_STATE.FACE_DOWN})}
+        [classes.hidden]: cardState === CARD_STATE.FACE_DOWN})}
            src={url}
            onLoad={() => dispatch({type: CARD_LOADED, id})}
            alt=""/>

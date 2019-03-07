@@ -53,6 +53,10 @@ const reducer = (state, action) => {
         arePair
           ? newState.cards = [...newState.cards.filter(card => card.state === CARD_STATE.FACE_DOWN || card.hasFindItsPair), ...cardsFacedUpWithoutPair.map(card => ({...card, hasFindItsPair: true}))]
           : newState.state = GAME_STATE.FREEZED
+
+        if (newState.cards.every(card => card.hasFindItsPair)) {
+          newState.state = GAME_STATE.FINISHED
+        }
       }
 
       return newState;
