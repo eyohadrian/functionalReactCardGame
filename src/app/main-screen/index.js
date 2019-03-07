@@ -10,6 +10,7 @@ import {CARDS_DOWN, SET_CARDS} from "./actions";
 import GAME_STATE from "./game-state";
 import {getGlobalState} from "../context/global-context";
 import {GAME_FINISHED, GAME_STARTS} from "../actions";
+import {getSetStage, STAGE} from "./context/stage-context";
 
 const style = {
   root: {
@@ -26,7 +27,7 @@ const Index = withStyles(style)(({classes}) => {
 
   const {"dispatch": dispatchGlobal} = getGlobalState();
   const {state, dispatch} = getGameState();
-
+  const setStage = getSetStage();
   useEffect(() => {
     console.log("Game has started");
     dispatchGlobal({type: GAME_STARTS, time: now()})
@@ -40,6 +41,7 @@ const Index = withStyles(style)(({classes}) => {
       hasFindItsPair: false
     }));
     dispatch({type: SET_CARDS, cards})
+
   }, []);
 
 
@@ -55,6 +57,7 @@ const Index = withStyles(style)(({classes}) => {
 
     if (state.state === GAME_STATE.FINISHED) {
       setTimeout(() => dispatchGlobal({type: GAME_FINISHED}), 1000)
+      setStage(STAGE.SUMMARY);
     }
   }, [state.state]);
 

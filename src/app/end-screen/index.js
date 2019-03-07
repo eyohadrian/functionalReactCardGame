@@ -2,6 +2,7 @@ import React from 'react';
 import {withStyles} from "@material-ui/core";
 import Button from "@material-ui/core/es/Button/Button";
 import {formattedTime} from "../main-screen/utils";
+import {getSetStage, STAGE} from "../main-screen/context/stage-context";
 
 
 
@@ -29,13 +30,15 @@ const style = {
   }
 }
 export default withStyles(style)(({classes}) => {
-  const time = formattedTime(4131)
+  const time = formattedTime(4131);
+  const setStage = getSetStage();
+
   return (
     <div className={classes.root}>
       <h2 className={classes.header}>
         {time}
       </h2>
-      <Button className={classes.button}>Play Again</Button>
+      <Button className={classes.button} onClick={() => setStage(STAGE.START)}>Play Again</Button>
     </div>
   )
 })

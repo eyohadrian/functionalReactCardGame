@@ -4,6 +4,7 @@ import {withStyles} from "@material-ui/core";
 import TextField from "@material-ui/core/TextField/TextField";
 import Button from "@material-ui/core/es/Button/Button";
 import {getGlobalState} from "../context/global-context";
+import {getSetStage, STAGE} from "../main-screen/context/stage-context";
 
 const style = {
   root: {
@@ -48,7 +49,7 @@ const retrieveFromApi = async (keyword) => {
     )};
 
 export default withStyles(style)(({classes}) => {
-
+  const setStage = getSetStage();
   useEffect(() => {
     console.log("Rendered start-screen")
   });
@@ -59,6 +60,7 @@ export default withStyles(style)(({classes}) => {
     retrieveFromApi(state.text).then(data => {
       console.log(data);
       dispatch({type: 'cardDataRecived', data})
+      setStage(STAGE.GAME);
     });
   }
 

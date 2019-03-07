@@ -1,9 +1,10 @@
-import React, {createContext} from 'react';
+import React, {createContext, useState} from 'react';
 import {withStyles} from "@material-ui/core";
 import StartScreen from './start-screen';
 import MainScreen from './main-screen';
 import {getGlobalState} from "./context/global-context";
 import EndScreen from './end-screen';
+import {STAGE, StageContextProvider} from "./main-screen/context/stage-context";
 
 const style = {
   root: {
@@ -42,22 +43,35 @@ const style = {
   }
 };
 
-const StageContext = createContext();
-const StageControl = ({children, setStage}) => (
-  <StageContext value={setStage}>
-    {children}
-  </StageContext>
-);
+
+const StageControl = ({stage}) => {
+  console.log(STAGE.START);
+  console.log(stage)
+  switch (stage) {
+    case STAGE.START: {
+      return <StartScreen/>
+    }
+    case STAGE.GAME: {
+      return <MainScreen/>
+    }
+    case STAGE.SUMMARY: {
+      return <EndScreen/>
+    }
+    default: {
+      return (<div>BAD STAGE</div>)
+    }
+  };
+};
 
 export default withStyles(style)(({classes}) => {
 
   const {state} = getGlobalState();
-
+  const [stage, setStage] = useState(STAGE.START);
   return (
       <div className={classes.root}>
-        {false && <StartScreen/>}
-        {(false && !state.gameFinished) && <MainScreen/>}
-        {true && <EndScreen/>}
+        <StageContextProvider setStage={setStage}>
+          <StageControl stage={stage}/>
+        </StageContextProvider>
       </div>
   )
 });
