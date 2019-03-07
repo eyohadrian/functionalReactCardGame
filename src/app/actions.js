@@ -1,1 +1,2 @@
 export const GAME_FINISHED = "GAME_FINISHED";
+export const GAME_STARTS = "GAME_STARTS";

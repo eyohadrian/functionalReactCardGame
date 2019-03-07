@@ -18,3 +18,14 @@ export const findCardsFacedUp = findCardsFaced(CARD_STATE.FACE_UP);
 export const findCardsFacedDown = findCardsFaced(CARD_STATE.FACE_DOWN);
 export const findCardsWithPairFound = cards => cards.filter(card => card.hasFindItsPair);
 export const findCardsWithPairNotFound = cards => cards.filter(card => !card.hasFindItsPair)
+
+
+export const formattedTime = milis => {
+  const time = new Date(milis);
+  const minutes = time.getMinutes();
+  const seconds = time.getSeconds();
+  const mili = time.getMilliseconds();
+  return `${minutes}:${seconds}.${mili}`
+};
+
+export const now = () => new Date().getTime();

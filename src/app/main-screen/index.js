@@ -5,11 +5,11 @@ import dummy from "./dummy";
 import {GameContextProvider, getGameState} from "./context/game-context";
 import Board from './board';
 import CARD_STATE from './card-state';
-import {areAllCardsFaceUp} from "./utils";
+import {areAllCardsFaceUp, now} from "./utils";
 import {CARDS_DOWN, SET_CARDS} from "./actions";
 import GAME_STATE from "./game-state";
 import {getGlobalState} from "../context/global-context";
-import {GAME_FINISHED} from "../actions";
+import {GAME_FINISHED, GAME_STARTS} from "../actions";
 
 const style = {
   root: {
@@ -29,6 +29,7 @@ const Index = withStyles(style)(({classes}) => {
 
   useEffect(() => {
     console.log("Game has started");
+    dispatchGlobal({type: GAME_STARTS, time: now()})
     const cards = dummy().map(data => ({
       id: data.id,
       url: data.url,
@@ -45,15 +46,15 @@ const Index = withStyles(style)(({classes}) => {
   useEffect(() => {
 
     if (areAllCardsFaceUp(state.cards) && state.state === GAME_STATE.STARTING) {
-      setTimeout(() => {dispatch({type: CARDS_DOWN})}, 1000)
+      setTimeout(() => dispatch({type: CARDS_DOWN}), 1500)
     }
 
     if (state.state === GAME_STATE.FREEZED) {
-      setTimeout(() => {dispatch({type: CARDS_DOWN})}, 1000)
+      setTimeout(() => dispatch({type: CARDS_DOWN}), 1000)
     }
 
     if (state.state === GAME_STATE.FINISHED) {
-      setTimeout(() => {dispatchGlobal({type: GAME_FINISHED})}, 1000)
+      setTimeout(() => dispatchGlobal({type: GAME_FINISHED}), 1000)
     }
   }, [state.state]);
 

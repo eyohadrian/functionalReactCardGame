@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {createContext} from 'react';
 import {withStyles} from "@material-ui/core";
 import StartScreen from './start-screen';
 import MainScreen from './main-screen';
 import {getGlobalState} from "./context/global-context";
-
+import EndScreen from './end-screen';
 
 const style = {
   root: {
@@ -42,7 +42,12 @@ const style = {
   }
 };
 
-
+const StageContext = createContext();
+const StageControl = ({children, setStage}) => (
+  <StageContext value={setStage}>
+    {children}
+  </StageContext>
+);
 
 export default withStyles(style)(({classes}) => {
 
@@ -51,7 +56,8 @@ export default withStyles(style)(({classes}) => {
   return (
       <div className={classes.root}>
         {false && <StartScreen/>}
-        {(true && !state.gameFinished) && <MainScreen/>}
+        {(false && !state.gameFinished) && <MainScreen/>}
+        {true && <EndScreen/>}
       </div>
   )
 });

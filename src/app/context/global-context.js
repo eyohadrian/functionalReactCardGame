@@ -1,10 +1,13 @@
 import React, {createContext, useContext, useReducer} from "react";
-import {GAME_FINISHED} from "../actions";
+import {GAME_FINISHED, GAME_STARTS} from "../actions";
+import {now} from "../main-screen/utils";
 
 const initialState = {
   text: "",
   send: false,
   cardRawData: undefined,
+  gameStartsAt: undefined,
+  time: undefined,
   gameFinished: false,
 };
 
@@ -25,6 +28,11 @@ const reducer = (state, action) => {
     }
     case GAME_FINISHED: {
       newState.gameFinished = true;
+      newState.time = now() - action.gameStartsAt;
+      return newState;
+    }
+    case GAME_STARTS: {
+      newState.gameStartsAt = action.time;
       return newState;
     }
     default: {
