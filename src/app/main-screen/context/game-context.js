@@ -9,7 +9,7 @@ import {
 } from "../utils";
 import GAME_STATE from "../game-state";
 import {CARD_CLICK, CARD_LOADED, CARDS_DOWN, SET_CARDS} from "../actions";
-import CARD_STATE from "../card-state";
+import CARD_STATE from "../../constants/card-state";
 
 const initialState = {
   cards: [],

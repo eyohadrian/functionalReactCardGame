@@ -1,7 +1,7 @@
 import React, {createContext, useContext, useReducer} from "react";
 import {CARDS_DATA_RECIVED, CHANGE_STAGE, GAME_FINISHED, GAME_STARTS} from "../actions";
 import {now} from "../app/main-screen/utils";
-import {STAGE} from "../app/main-screen/context/stage-context";
+import {STAGE} from "../app/constants/stage";
 
 const initialState = {
   cardRawData: undefined,

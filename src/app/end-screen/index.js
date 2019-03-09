@@ -2,7 +2,7 @@ import React from 'react';
 import {withStyles} from "@material-ui/core";
 import Button from "@material-ui/core/es/Button/Button";
 import {formattedTime} from "../main-screen/utils";
-import {getSetStage, STAGE} from "../main-screen/context/stage-context";
+import {getSetStage, STAGE} from "../constants/stage";
 import {getGlobalState} from "../../context/global-context";
 import {CHANGE_STAGE} from "../../actions";
 

@@ -4,7 +4,7 @@ import StartScreen from './start-screen';
 import MainScreen from './main-screen';
 import {getGlobalState} from "../context/global-context";
 import EndScreen from './end-screen';
-import {STAGE, StageContextProvider} from "./main-screen/context/stage-context";
+import {STAGE, StageContextProvider} from "./constants/stage";
 
 const style = {
   root: {

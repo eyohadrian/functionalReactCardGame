@@ -4,13 +4,13 @@ import {withStyles} from "@material-ui/core";
 import dummy from "./dummy";
 import {GameContextProvider, getGameState} from "./context/game-context";
 import Board from './board';
-import CARD_STATE from './card-state';
+import CARD_STATE from '../constants/card-state';
 import {areAllCardsFaceUp, now} from "./utils";
 import {CARDS_DOWN, SET_CARDS} from "./actions";
 import GAME_STATE from "./game-state";
 import {getGlobalState} from "../../context/global-context";
 import {CHANGE_STAGE, GAME_FINISHED, GAME_STARTS} from "../../actions";
-import {getSetStage, STAGE} from "./context/stage-context";
+import {getSetStage, STAGE} from "../constants/stage";
 
 const style = {
   root: {

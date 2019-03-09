@@ -4,7 +4,7 @@ import {withStyles} from "@material-ui/core";
 import TextField from "@material-ui/core/TextField/TextField";
 import Button from "@material-ui/core/es/Button/Button";
 import {getGlobalState} from "../../context/global-context";
-import {getSetStage, STAGE} from "../main-screen/context/stage-context";
+import {getSetStage, STAGE} from "../constants/stage";
 import {CARDS_DATA_RECIVED, CHANGE_STAGE, ON_CHANGE, SUBMIT} from "../../actions";
 
 const style = {

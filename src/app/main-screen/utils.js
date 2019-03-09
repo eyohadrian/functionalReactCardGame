@@ -1,4 +1,4 @@
-import CARD_STATE from "./card-state";
+import CARD_STATE from "../constants/card-state";
 
 export const allCardsFaceUp = cards => cards.map(card => ({...card, state: CARD_STATE.FACE_UP}));
 export const allCardsFaceDown = cards => cards.map(card => ({...card, state: CARD_STATE.FACE_DOWN}));
