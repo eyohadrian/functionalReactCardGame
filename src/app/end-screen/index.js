@@ -3,6 +3,8 @@ import {withStyles} from "@material-ui/core";
 import Button from "@material-ui/core/es/Button/Button";
 import {formattedTime} from "../main-screen/utils";
 import {getSetStage, STAGE} from "../main-screen/context/stage-context";
+import {getGlobalState} from "../../context/global-context";
+import {CHANGE_STAGE} from "../../actions";
 
 
 
@@ -32,14 +34,13 @@ const style = {
 
 export default withStyles(style)(({classes}) => {
   const time = formattedTime(4131);
-  const setStage = getSetStage();
-
+  const {dispatchGlobal} = getGlobalState();
   return (
     <div className={classes.root}>
       <h2 className={classes.header}>
         {time}
       </h2>
-      <Button className={classes} onClick={() => setStage(STAGE.START)}>Play Again</Button>
+      <Button className={classes} onClick={() => dispatchGlobal({type: CHANGE_STAGE, stage: STAGE.START})}>Play Again</Button>
     </div>
   )
 })

@@ -2,7 +2,7 @@ import React, {createContext, useState} from 'react';
 import {withStyles} from "@material-ui/core";
 import StartScreen from './start-screen';
 import MainScreen from './main-screen';
-import {getGlobalState} from "./context/global-context";
+import {getGlobalState} from "../context/global-context";
 import EndScreen from './end-screen';
 import {STAGE, StageContextProvider} from "./main-screen/context/stage-context";
 
@@ -44,7 +44,7 @@ const style = {
 };
 
 
-const StageControl = ({stage}) => {
+const StageController = ({stage}) => {
   switch (stage) {
     case STAGE.START: {
       return <StartScreen/>
@@ -64,10 +64,11 @@ const StageControl = ({stage}) => {
 export default withStyles(style)(({classes}) => {
 
   const [stage, setStage] = useState(STAGE.START);
+  const {globalState, dispatchGlobal} = getGlobalState();
   return (
       <div className={classes.root}>
         <StageContextProvider setStage={setStage}>
-          <StageControl stage={stage}/>
+          <StageController stage={globalState.stage}/>
         </StageContextProvider>
       </div>
   )

@@ -4,7 +4,7 @@ import './index.css';
 import App from './app';
 import * as serviceWorker from './serviceWorker';
 
-import {GlobalContextProvider} from "./app/context/global-context";
+import {GlobalContextProvider} from "./context/global-context";
 
 ReactDOM.render(
   <GlobalContextProvider>

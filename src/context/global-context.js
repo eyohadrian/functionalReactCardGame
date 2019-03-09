@@ -1,12 +1,14 @@
 import React, {createContext, useContext, useReducer} from "react";
-import {CARDS_DATA_RECIVED, GAME_FINISHED, GAME_STARTS } from "../actions";
-import {now} from "../main-screen/utils";
+import {CARDS_DATA_RECIVED, CHANGE_STAGE, GAME_FINISHED, GAME_STARTS} from "../actions";
+import {now} from "../app/main-screen/utils";
+import {STAGE} from "../app/main-screen/context/stage-context";
 
 const initialState = {
   cardRawData: undefined,
   gameStartsAt: undefined,
   time: undefined,
   gameFinished: false,
+  stage: STAGE.START
 };
 
 const reducer = (state, action) => {
@@ -23,6 +25,10 @@ const reducer = (state, action) => {
     }
     case GAME_STARTS: {
       newState.gameStartsAt = action.time;
+      return newState;
+    }
+    case CHANGE_STAGE: {
+      newState.stage = action.stage;
       return newState;
     }
     default: {

@@ -3,9 +3,9 @@ import Card from "@material-ui/core/es/Card/Card";
 import {withStyles} from "@material-ui/core";
 import TextField from "@material-ui/core/TextField/TextField";
 import Button from "@material-ui/core/es/Button/Button";
-import {getGlobalState} from "../context/global-context";
+import {getGlobalState} from "../../context/global-context";
 import {getSetStage, STAGE} from "../main-screen/context/stage-context";
-import {CARDS_DATA_RECIVED, ON_CHANGE, SUBMIT} from "../actions";
+import {CARDS_DATA_RECIVED, CHANGE_STAGE, ON_CHANGE, SUBMIT} from "../../actions";
 
 const style = {
   root: {
@@ -53,17 +53,15 @@ const initialState = {
   text: ""
 };
 
-
-
 export default withStyles(style)(({classes}) => {
 
   const [state, setState] = useState(initialState);
-  const setStage = getSetStage();
   const {dispatchGlobal} = getGlobalState();
 
   const submit = () => retrieveFromApi(state.text).then(data => {
-    dispatchGlobal({type: CARDS_DATA_RECIVED, data})
-    setStage(STAGE.GAME);
+    dispatchGlobal({type: CARDS_DATA_RECIVED, data});
+    dispatchGlobal({type: CHANGE_STAGE, stage: STAGE.GAME})
+    //setStage(STAGE.GAME);
   });
 
   return (

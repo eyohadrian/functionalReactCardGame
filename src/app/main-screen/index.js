@@ -8,8 +8,8 @@ import CARD_STATE from './card-state';
 import {areAllCardsFaceUp, now} from "./utils";
 import {CARDS_DOWN, SET_CARDS} from "./actions";
 import GAME_STATE from "./game-state";
-import {getGlobalState} from "../context/global-context";
-import {GAME_FINISHED, GAME_STARTS} from "../actions";
+import {getGlobalState} from "../../context/global-context";
+import {CHANGE_STAGE, GAME_FINISHED, GAME_STARTS} from "../../actions";
 import {getSetStage, STAGE} from "./context/stage-context";
 
 const style = {
@@ -27,7 +27,6 @@ const Index = withStyles(style)(({classes}) => {
 
   const {globalState, dispatchGlobal} = getGlobalState();
   const {state, dispatch} = getGameState();
-  const setStage = getSetStage();
   useEffect(() => {
     console.log("Game has started");
     dispatchGlobal({type: GAME_STARTS, time: now()})
@@ -57,7 +56,7 @@ const Index = withStyles(style)(({classes}) => {
 
     if (state.state === GAME_STATE.FINISHED) {
       setTimeout(() => dispatchGlobal({type: GAME_FINISHED}), 1000)
-      setStage(STAGE.SUMMARY);
+      dispatchGlobal({type: CHANGE_STAGE, stage: STAGE.SUMMARY});
     }
   }, [state.state]);
 
