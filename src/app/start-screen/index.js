@@ -5,7 +5,7 @@ import TextField from "@material-ui/core/TextField/TextField";
 import Button from "@material-ui/core/es/Button/Button";
 import {getGlobalState} from "../context/global-context";
 import {getSetStage, STAGE} from "../main-screen/context/stage-context";
-import {CARDS_DATA_RECIVED} from "../actions";
+import {CARDS_DATA_RECIVED, ON_CHANGE, SUBMIT} from "../actions";
 
 const style = {
   root: {
@@ -69,8 +69,8 @@ export default withStyles(style)(({classes}) => {
     <Card className={classes.root}>
       <TextField
         value={globalState.text}
-        onChange={e => dispatchGlobal({type: 'onChange', value: e.currentTarget.value})}/>
-      <Button onClick={() => dispatchGlobal({type: 'submit'})}>Submit</Button>
+        onChange={e => dispatchGlobal({type: ON_CHANGE, value: e.currentTarget.value})}/>
+      <Button onClick={() => dispatchGlobal({type: SUBMIT})}>Submit</Button>
     </Card>
   )
 })

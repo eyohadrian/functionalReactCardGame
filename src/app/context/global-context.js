@@ -1,5 +1,5 @@
 import React, {createContext, useContext, useReducer} from "react";
-import {CARDS_DATA_RECIVED, GAME_FINISHED, GAME_STARTS} from "../actions";
+import {CARDS_DATA_RECIVED, GAME_FINISHED, GAME_STARTS, ON_CHANGE, SUBMIT} from "../actions";
 import {now} from "../main-screen/utils";
 
 const initialState = {
@@ -14,11 +14,11 @@ const initialState = {
 const reducer = (state, action) => {
   const newState = {...state};
   switch (action.type) {
-    case 'onChange': {
+    case ON_CHANGE: {
       newState.text = action.value;
       return newState;
     }
-    case 'submit': {
+    case SUBMIT: {
       newState.send = true;
       return newState;
     }
