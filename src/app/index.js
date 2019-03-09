@@ -45,8 +45,6 @@ const style = {
 
 
 const StageControl = ({stage}) => {
-  console.log(STAGE.START);
-  console.log(stage)
   switch (stage) {
     case STAGE.START: {
       return <StartScreen/>
@@ -65,7 +63,7 @@ const StageControl = ({stage}) => {
 
 export default withStyles(style)(({classes}) => {
 
-  const [stage, setStage] = useState(STAGE.START);
+  const [stage, setStage] = useState(STAGE.SUMMARY);
   return (
       <div className={classes.root}>
         <StageContextProvider setStage={setStage}>
