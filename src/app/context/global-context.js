@@ -1,10 +1,8 @@
 import React, {createContext, useContext, useReducer} from "react";
-import {CARDS_DATA_RECIVED, GAME_FINISHED, GAME_STARTS, ON_CHANGE, SUBMIT} from "../actions";
+import {CARDS_DATA_RECIVED, GAME_FINISHED, GAME_STARTS } from "../actions";
 import {now} from "../main-screen/utils";
 
 const initialState = {
-  text: "",
-  send: false,
   cardRawData: undefined,
   gameStartsAt: undefined,
   time: undefined,
@@ -14,14 +12,6 @@ const initialState = {
 const reducer = (state, action) => {
   const newState = {...state};
   switch (action.type) {
-    case ON_CHANGE: {
-      newState.text = action.value;
-      return newState;
-    }
-    case SUBMIT: {
-      newState.send = true;
-      return newState;
-    }
     case CARDS_DATA_RECIVED: {
       newState.cardRawData = action.data;
       return newState;

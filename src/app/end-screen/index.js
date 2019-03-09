@@ -3,7 +3,6 @@ import {withStyles} from "@material-ui/core";
 import Button from "@material-ui/core/es/Button/Button";
 import {formattedTime} from "../main-screen/utils";
 import {getSetStage, STAGE} from "../main-screen/context/stage-context";
-import ResetButton from "../components/ResetButton";
 
 
 
@@ -40,7 +39,7 @@ export default withStyles(style)(({classes}) => {
       <h2 className={classes.header}>
         {time}
       </h2>
-      <ResetButton className={classes.button}/>
+      <Button className={classes} onClick={() => setStage(STAGE.START)}>Play Again</Button>
     </div>
   )
 })

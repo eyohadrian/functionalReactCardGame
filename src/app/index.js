@@ -58,12 +58,12 @@ const StageControl = ({stage}) => {
     default: {
       return (<div>BAD STAGE</div>)
     }
-  };
+  }
 };
 
 export default withStyles(style)(({classes}) => {
 
-  const [stage, setStage] = useState(STAGE.SUMMARY);
+  const [stage, setStage] = useState(STAGE.START);
   return (
       <div className={classes.root}>
         <StageContextProvider setStage={setStage}>

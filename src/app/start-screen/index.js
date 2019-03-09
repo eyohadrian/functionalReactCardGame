@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import Card from "@material-ui/core/es/Card/Card";
 import {withStyles} from "@material-ui/core";
 import TextField from "@material-ui/core/TextField/TextField";
@@ -49,28 +49,29 @@ const retrieveFromApi = async (keyword) => {
         .reduce((prev, current) => [...prev, ...current])
     )};
 
+const initialState = {
+  text: ""
+};
+
+
+
 export default withStyles(style)(({classes}) => {
+
+  const [state, setState] = useState(initialState);
   const setStage = getSetStage();
-  useEffect(() => {
-    console.log("Rendered start-screen")
+  const {dispatchGlobal} = getGlobalState();
+
+  const submit = () => retrieveFromApi(state.text).then(data => {
+    dispatchGlobal({type: CARDS_DATA_RECIVED, data})
+    setStage(STAGE.GAME);
   });
-
-  const {globalState, dispatchGlobal} = getGlobalState();
-
-  if(globalState.send) {
-    retrieveFromApi(globalState.text).then(data => {
-      console.log(data);
-      dispatchGlobal({type: CARDS_DATA_RECIVED, data})
-      setStage(STAGE.GAME);
-    });
-  }
 
   return (
     <Card className={classes.root}>
       <TextField
-        value={globalState.text}
-        onChange={e => dispatchGlobal({type: ON_CHANGE, value: e.currentTarget.value})}/>
-      <Button onClick={() => dispatchGlobal({type: SUBMIT})}>Submit</Button>
+        value={state.text}
+        onChange={e => setState({text: e.currentTarget.value})}/>
+      <Button onClick={submit}>Submit</Button>
     </Card>
   )
 })
