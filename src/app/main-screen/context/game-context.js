@@ -7,7 +7,7 @@ import {
   filterCardPrdecitacte, findCardsFacedDown, findCardsFacedUp, findCardsWithPairFound, findCardsWithPairNotFound,
   loadedToTrueAndReturn
 } from "../utils";
-import GAME_STATE from "../game-state";
+import GAME_STATE from "../../constants/game-state";
 import {CARD_CLICK, CARD_LOADED, CARDS_DOWN, SET_CARDS} from "../actions";
 import CARD_STATE from "../../constants/card-state";
 

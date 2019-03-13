@@ -4,7 +4,7 @@ import StartScreen from './start-screen';
 import MainScreen from './main-screen';
 import {getGlobalState} from "../context/global-context";
 import EndScreen from './end-screen';
-import {STAGE, StageContextProvider} from "./constants/stage";
+import {STAGE} from "./constants/stage";
 
 const style = {
   root: {
@@ -63,13 +63,10 @@ const StageController = ({stage}) => {
 
 export default withStyles(style)(({classes}) => {
 
-  const [stage, setStage] = useState(STAGE.START);
-  const {globalState, dispatchGlobal} = getGlobalState();
+  const {globalState} = getGlobalState();
   return (
       <div className={classes.root}>
-        <StageContextProvider setStage={setStage}>
           <StageController stage={globalState.stage}/>
-        </StageContextProvider>
       </div>
   )
 });

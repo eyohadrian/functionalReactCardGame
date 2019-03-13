@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import {getGameState} from "./context/game-context";
 import CARD_STATE from "../constants/card-state";
 import {CARD_CLICK, CARD_LOADED} from "./actions";
-import GAME_STATE from "./game-state";
+import GAME_STATE from "../constants/game-state";
 import {getGameDispatchContext} from "./index";
 
 const cardProperties = {
