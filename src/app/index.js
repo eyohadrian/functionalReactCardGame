@@ -8,12 +8,11 @@ import {STAGE} from "./constants/stage";
 
 const style = {
   root: {
-    backgroundColor: '#f0ffe5',
     height: '100vh',
     width: '100vw',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   content: {
     backgroundColor: '#a1cfff',
@@ -66,7 +65,7 @@ export default withStyles(style)(({classes}) => {
   const {globalState} = getGlobalState();
   return (
       <div className={classes.root}>
-          <StageController stage={STAGE.GAME}/>
+          <StageController stage={globalState.stage}/>
       </div>
   )
 });

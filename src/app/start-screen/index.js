@@ -6,11 +6,16 @@ import Button from "@material-ui/core/es/Button/Button";
 import {getGlobalState} from "../../context/global-context";
 import {getSetStage, STAGE} from "../constants/stage";
 import {CARDS_DATA_RECIVED, CHANGE_STAGE, ON_CHANGE, SUBMIT} from "../../actions";
+import { shadows } from '@material-ui/system';
+
 
 const style = {
   root: {
     height: '300px',
-    width: '600px'
+    width: '600px',
+    backgroundColor: '#fefefe',
+    boxShadow: '5px 9px 3px 0px rgba(0,0,0,0.2), 11px 9px 1px 0px rgba(0,0,0,0.14), 8px 9px 1px -1px rgba(0,0,0,0.12)'
+    //boxShadow: '0px 0px 240px 24px rgba(220,222,185,1)'
   }
 };
 
@@ -61,7 +66,6 @@ export default withStyles(style)(({classes}) => {
   const submit = () => retrieveFromApi(state.text).then(data => {
     dispatchGlobal({type: CARDS_DATA_RECIVED, data});
     dispatchGlobal({type: CHANGE_STAGE, stage: STAGE.GAME})
-    //setStage(STAGE.GAME);
   });
 
   return (
