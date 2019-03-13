@@ -66,7 +66,7 @@ export default withStyles(style)(({classes}) => {
   const {globalState} = getGlobalState();
   return (
       <div className={classes.root}>
-          <StageController stage={globalState.stage}/>
+          <StageController stage={STAGE.GAME}/>
       </div>
   )
 });

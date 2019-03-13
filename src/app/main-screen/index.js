@@ -30,7 +30,7 @@ const Index = withStyles(style)(({classes}) => {
   useEffect(() => {
     console.log("Game has started");
     dispatchGlobal({type: GAME_STARTS, time: now()})
-    const cards = globalState.cardRawData.map(data => ({
+    const cards = dummy().map(data => ({
       id: data.id,
       url: data.url,
       loaded: false,
