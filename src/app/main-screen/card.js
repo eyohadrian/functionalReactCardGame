@@ -13,6 +13,7 @@ const cardProperties = {
   borderRadius: '10px',
   position: 'absolute',
   top: '0',
+  border: 'solid 2px black',
 };
 
 const style = {
@@ -33,7 +34,7 @@ const style = {
     backgroundSize: '100% 100%'
   },
   back: {
-    backgroundColor: 'red',
+    background: 'linear-gradient(61deg, #98c2cc -40%, #366379 45%)',
     ...cardProperties
   },
   hidden: {
