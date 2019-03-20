@@ -4,9 +4,9 @@ import {withStyles} from "@material-ui/core";
 import TextField from "@material-ui/core/TextField/TextField";
 import Button from "@material-ui/core/es/Button/Button";
 import {getGlobalState} from "../../context/global-context";
-import {getSetStage, STAGE} from "../constants/stage";
-import {CARDS_DATA_RECIVED, CHANGE_STAGE, ON_CHANGE, SUBMIT} from "../../actions";
-import { shadows } from '@material-ui/system';
+import {STAGE} from "../constants/stage";
+import {CARDS_DATA_RECIVED, CHANGE_STAGE, } from "../../actions";
+import apiKey from "./apiKey";
 
 
 const style = {
@@ -14,7 +14,7 @@ const style = {
     height: '300px',
     width: '600px',
     backgroundColor: '#fefefe',
-    boxShadow: '5px 9px 3px 0px rgba(0,0,0,0.2), 11px 9px 1px 0px rgba(0,0,0,0.14), 8px 9px 1px -1px rgba(0,0,0,0.12)'
+    boxShadow: '5px 9px 3px 0px rgba(0,0,0,0.2), 11px 9px 1px 0px rgba(0,0,0,0.14), 11px 16px 1px -1px rgba(0,0,0,0.12)'
     //boxShadow: '0px 0px 240px 24px rgba(220,222,185,1)'
   }
 };
@@ -29,7 +29,7 @@ const formattedKeyword = (keyword) => {
   return keyword.replace(" ", "+");
 };
 
-const apiKey = "5c902b45955a07ade0a24495f1972c8b4549ff10b50a3a52ebcc887f16ec11c2";
+
 const nCards = 5;
 
 const retrieveFromApi = async (keyword) => {
