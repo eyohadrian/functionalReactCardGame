@@ -20,7 +20,8 @@ const reducer = (state, action) => {
     }
     case GAME_FINISHED: {
       newState.gameFinished = true;
-      newState.time = now() - action.gameStartsAt;
+      newState.time = now() - state.gameStartsAt;
+      debugger;
       return newState;
     }
     case GAME_STARTS: {

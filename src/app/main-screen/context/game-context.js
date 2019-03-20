@@ -1,10 +1,10 @@
 import React, {createContext, useContext, useReducer} from "react";
 import {
-  addCard, allCardsFaceDown,
+  addCard,
   allCardsFaceUp,
   areCardsLoaded, cardsWithPairNotFoundFaceDown,
   excludeCardsPredicate,
-  filterCardPrdecitacte, findCardsFacedDown, findCardsFacedUp, findCardsWithPairFound, findCardsWithPairNotFound,
+  filterCardPrdecitacte, findCardsFacedUp, findCardsWithPairNotFound,
   loadedToTrueAndReturn
 } from "../utils";
 import GAME_STATE from "../../constants/game-state";

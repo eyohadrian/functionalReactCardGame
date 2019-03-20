@@ -42,7 +42,6 @@ const style = {
   }
 };
 
-
 const StageController = ({stage}) => {
   switch (stage) {
     case STAGE.START: {
