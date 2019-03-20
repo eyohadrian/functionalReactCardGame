@@ -53,8 +53,10 @@ const Index = withStyles(style)(({classes}) => {
     }
 
     if (state.state === GAME_STATE.FINISHED) {
-      setTimeout(() => dispatchGlobal({type: GAME_FINISHED}), 1000)
-      dispatchGlobal({type: CHANGE_STAGE, stage: STAGE.SUMMARY});
+      setTimeout(() => {
+        dispatchGlobal({type: GAME_FINISHED});
+        dispatchGlobal({type: CHANGE_STAGE, stage: STAGE.SUMMARY});
+      }, 1000)
     }
   }, [state.state]);
 
