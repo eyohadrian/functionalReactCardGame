@@ -25,7 +25,7 @@ export const formattedTime = milis => {
   const minutes = time.getMinutes();
   const seconds = time.getSeconds();
   const mili = time.getMilliseconds();
-  return `${minutes}:${seconds}.${mili}`
+  return `${minutes} minutes,  ${seconds} seconds, ${mili} miliseconds`
 };
 
 export const now = () => new Date().getTime();
