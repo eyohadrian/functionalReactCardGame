@@ -20,12 +20,4 @@ export const findCardsWithPairFound = cards => cards.filter(card => card.hasFind
 export const findCardsWithPairNotFound = cards => cards.filter(card => !card.hasFindItsPair)
 
 
-export const formattedTime = milis => {
-  const time = new Date(milis);
-  const minutes = time.getMinutes();
-  const seconds = time.getSeconds();
-  const mili = time.getMilliseconds();
-  return `${minutes} minutes,  ${seconds} seconds, ${mili} miliseconds`
-};
-
 export const now = () => new Date().getTime();
